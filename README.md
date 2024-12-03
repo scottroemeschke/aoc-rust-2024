@@ -1,8 +1,9 @@
 <img src="./.assets/christmas_ferris.png" width="164">
 
-# 🎄 Advent of Code {year}
+# 🎄 Advent of Code 2024
 
-Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/).
+Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/)
+> This is forked via the excellent [fspoettel/advent-of-code-rust](https://github.com/fspoettel/advent-of-code-rust?tab=readme-ov-file).
 
 <!--- advent_readme_stars table --->
 
@@ -19,8 +20,6 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 <!--- benchmarking table --->
 
 ---
-
-> This is forked via the excellent [fspoettel/advent-of-code-rust](https://github.com/fspoettel/advent-of-code-rust?tab=readme-ov-file).
 
 ## Usage
 
