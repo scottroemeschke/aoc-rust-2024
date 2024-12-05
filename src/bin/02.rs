@@ -1,3 +1,6 @@
+use rayon::iter::IntoParallelRefIterator;
+use rayon::iter::ParallelIterator;
+
 advent_of_code::solution!(2);
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -10,7 +13,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     let inp = Input::from_str(input);
     let num_safe_reports = inp
         .reports
-        .iter()
+        .par_iter()
         .filter(|r| r.is_safe_with_problem_dampener())
         .count();
     Some(num_safe_reports as u32)
@@ -54,7 +57,7 @@ impl Report {
 
         for (&prev, &current) in levels.iter().zip(levels.iter().skip(1)) {
             let diff = prev.abs_diff(current);
-            if (diff < 1 || diff > 3) {
+            if diff < 1 || diff > 3 {
                 return false;
             }
 

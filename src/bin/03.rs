@@ -5,7 +5,7 @@ use nom::bytes::complete::tag;
 use nom::character::complete::digit1;
 use nom::combinator::{map, map_res};
 use nom::sequence::{delimited, tuple};
-use nom::{IResult, Parser};
+use nom::IResult;
 
 advent_of_code::solution!(3);
 

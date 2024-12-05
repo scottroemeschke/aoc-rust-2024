@@ -21,7 +21,6 @@ const DIRECTIONS: [(isize, isize); 8] = [
     (-1, -1),
 ];
 
-
 impl Input {
     fn from_str(input: &str) -> Self {
         let lines: Vec<_> = input.lines().collect();
@@ -29,10 +28,7 @@ impl Input {
         Self { grid }
     }
 
-    fn find_matching_word_in_all_directions(
-        &self,
-        word: &str,
-    ) -> u32 {
+    fn find_matching_word_in_all_directions(&self, word: &str) -> u32 {
         let rows = self.grid.len();
         let cols = self.grid[0].len();
         let mut count = 0;
@@ -69,7 +65,6 @@ impl Input {
         count
     }
 }
-
 
 pub fn part_two(input: &str) -> Option<u32> {
     let input = Input::from_str(input);
@@ -116,7 +111,13 @@ pub fn part_two(input: &str) -> Option<u32> {
             if input.grid[x][y] == 'A' {
                 //check both directions from the A
                 if find_matching_mas_in_direction(&input.grid, x as isize - 1, y as isize - 1, 1, 1)
-                    && find_matching_mas_in_direction(&input.grid, x as isize + 1, y as isize - 1, -1, 1)
+                    && find_matching_mas_in_direction(
+                        &input.grid,
+                        x as isize + 1,
+                        y as isize - 1,
+                        -1,
+                        1,
+                    )
                 {
                     count += 1;
                 }

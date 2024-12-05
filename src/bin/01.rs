@@ -1,3 +1,6 @@
+use rayon::iter::IndexedParallelIterator;
+use rayon::iter::IntoParallelRefIterator;
+use rayon::iter::ParallelIterator;
 use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 
@@ -41,8 +44,8 @@ pub fn part_one(input: &str) -> Option<u32> {
     let inp = Input::from_str(input);
     let total_diff = inp
         .left_column
-        .iter()
-        .zip(inp.right_column.iter())
+        .par_iter()
+        .zip(inp.right_column.par_iter())
         .map(|(lv, rv)| u32::abs_diff(*lv, *rv))
         .sum();
 
@@ -52,22 +55,25 @@ pub fn part_one(input: &str) -> Option<u32> {
 pub fn part_two(input: &str) -> Option<u32> {
     let inp = Input::from_str(input);
 
-    let mut counts_in_rhs = HashMap::new();
-    for &num in inp.right_column.iter() {
-        match counts_in_rhs.entry(num) {
-            Entry::Occupied(mut e) => {
-                *e.get_mut() += 1;
+    let mut counts_in_rhs = inp
+        .right_column
+        .par_iter()
+        .fold(HashMap::new, |mut local_map, &num| {
+            *local_map.entry(num).or_insert(0) += 1;
+            local_map
+        })
+        .reduce(HashMap::new, |mut global_map, local_map| {
+            for (key, count) in local_map {
+                *global_map.entry(key).or_insert(0) += count;
             }
-            Entry::Vacant(e) => {
-                e.insert(1);
-            }
-        }
-    }
+            global_map
+        });
 
     let sim = inp
         .left_column
-        .iter()
-        .fold(0, |acc, n| acc + (n * counts_in_rhs.get(n).unwrap_or(&0)));
+        .par_iter()
+        .map(|&n| n * counts_in_rhs.get(&n).unwrap_or(&0))
+        .sum::<u32>();
 
     Some(sim)
 }
