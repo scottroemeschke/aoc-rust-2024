@@ -1,6 +1,6 @@
 use std::cmp::PartialEq;
 use std::collections::HashSet;
-use rayon::iter::{IntoParallelIterator, IntoParallelRefIterator, ParallelIterator};
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 advent_of_code::solution!(6);
 
@@ -212,7 +212,7 @@ fn simulate_guard_movement(map: &Vec<Vec<MapSlot>>, guard_initial_position: (usi
             return MovementSimulationResult::Loop;
         }
 
-        distinct_positions.insert((new_pos));
+        distinct_positions.insert(new_pos);
         current_guard_pos = new_pos;
         current_orientation = new_orientation;
     }

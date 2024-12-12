@@ -1,7 +1,6 @@
 use rayon::iter::IndexedParallelIterator;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
-use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 
 advent_of_code::solution!(1);
@@ -55,7 +54,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 pub fn part_two(input: &str) -> Option<u32> {
     let inp = Input::from_str(input);
 
-    let mut counts_in_rhs = inp
+    let counts_in_rhs = inp
         .right_column
         .par_iter()
         .fold(HashMap::new, |mut local_map, &num| {
